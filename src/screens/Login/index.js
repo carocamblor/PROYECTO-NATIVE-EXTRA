@@ -14,6 +14,7 @@ class Login extends Component {
 
     render() {
         return (
+            <View style={styles.screen}>
             <View style={styles.container}>
                 <Text style={styles.title}>Login</Text>
                 <TextInput
@@ -45,12 +46,17 @@ class Login extends Component {
                     </Text>
                 </TouchableOpacity>
             </View>
+            </View>
         )
     }
 
 }
 
 const styles = StyleSheet.create({
+    screen: {
+        backgroundColor: '#202020',
+        height: '100%'
+    },
     container: {
         padding: 50,
         height: '60%',
@@ -85,13 +91,13 @@ const styles = StyleSheet.create({
         fontSize: 17
     },
     text: {
-        color: 'black',
+        color: 'white',
         display: 'flex',
         alignItems: 'center',
         fontSize: 15
     },
     link: {
-        color: 'black',
+        color: 'white',
         display: 'flex',
         alignItems: 'center',
         fontSize: 15,

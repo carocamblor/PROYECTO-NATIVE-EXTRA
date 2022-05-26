@@ -40,7 +40,7 @@ class Home extends Component {
                 <FlatList
                     data={this.state.posts}
                     keyExtractor={ item => item.id.toString() }
-                    renderItem={ ({item}) => <Post data={item.data} />}
+                    renderItem={ ({item}) => <Post info={item} />}
                 />}
             </View>
         )
@@ -50,6 +50,8 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: '#202020',
+        height: '100%'
     },
   });
 

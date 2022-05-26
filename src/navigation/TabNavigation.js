@@ -21,14 +21,11 @@ class TabNavigation extends Component {
     render(){
         return( 
                 <Tab.Navigator
-                    sceneContainerStyle={{
-                        backgroundColor: 'transparent'
-                    }}
                     screenOptions={{
                         tabBarShowLabel: false,
                         headerShown: false,
                         tabBarStyle: {
-                            backgroundColor: 'transparent',
+                            backgroundColor: '#202020',
                             borderTopColor: '#404040'
                         }
                     }} >

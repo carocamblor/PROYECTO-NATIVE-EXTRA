@@ -32,13 +32,7 @@ class Profile extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <Post data={{text: 'Este es el contenido del post'}}/>
-                <Post data={{text: 'Este es el contenido del post'}}/>
-                <Post data={{text: 'Este es el contenido del post'}}/>
-                <Post data={{text: 'Este es el contenido del post'}}/>
-                <Post data={{text: 'Este es el contenido del post'}}/>
-                <Post data={{text: 'Este es el contenido del post'}}/>
-                <Post data={{text: 'Este es el contenido del post'}}/>
+                {/* <Post/> */}
             </View>
         )
     }
@@ -47,6 +41,8 @@ class Profile extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: '#202020',
+        height: '100%'
     },
     profile: {
         padding: 20,

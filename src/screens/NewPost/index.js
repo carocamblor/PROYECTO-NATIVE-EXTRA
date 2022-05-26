@@ -15,6 +15,8 @@ class NewPost extends Component {
         db.collection('posts').add({
             text: text,
             owner: auth.currentUser.email,
+            likes: [],
+            comments: [],
             createdAt: Date.now()
         })
         .then(response => {
@@ -25,7 +27,8 @@ class NewPost extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={styles.screen}>
+                <View style={styles.container}>
                 <Text style={styles.title}>New Post</Text>
                 <TextInput
                     style={styles.input}
@@ -43,6 +46,7 @@ class NewPost extends Component {
                         Post
                     </Text>
                 </TouchableOpacity>
+                </View>
             </View>
         )
     }
@@ -50,10 +54,15 @@ class NewPost extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    screen: {
         padding: 50,
+        height: '100%',
+        backgroundColor: '#202020'
+    },
+    container: {
         height: '60%',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
+        backgroundColor: '#202020'
     },
     title: {
         color: 'white',
