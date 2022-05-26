@@ -21,7 +21,7 @@ class Post extends Component {
                     <Text style={styles.username}>@username</Text>
                 </View>
                 <View style={styles.content}>
-                    <Text style={styles.text}>Este es el contenido del post</Text>
+                    <Text style={styles.text}>{this.props.data.text}</Text>
                 </View>
                 <View style={styles.smallContainer}>
                     {this.state.liked ?

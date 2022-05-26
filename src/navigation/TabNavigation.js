@@ -52,6 +52,7 @@ class TabNavigation extends Component {
                         options={
                             { tabBarIcon: () => <Ionicons name="person" size={24} color="white" /> }
                         }
+                        initialParams={ {logout: () => this.props.route.params.logout()} }
                     />
                 </Tab.Navigator>
         )

@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Post from '../../components/Post';
 import { FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { auth } from '../../firebase/config';
 
 class Profile extends Component {
 
@@ -13,6 +16,7 @@ class Profile extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <View style={styles.container}>
                 <View style={styles.profile}>
@@ -22,17 +26,19 @@ class Profile extends Component {
                         <Text style={styles.text}>Acá va la bio del usuario</Text>
                         <Text style={styles.text}>Joined: 25/05/2022</Text>
                     </View>
+                    <View style={styles.logoutContainer}>
+                        <TouchableOpacity onPress={() => this.props.route.params.logout()}>
+                            <Ionicons name="log-out" size={24} color="white" />
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <Post/>
-                <Post/>
-                <Post/>
-                <Post/>
-                <Post/>
-                <Post/>
-                <Post/>
-                <Post/>
-                <Post/>
-                <Post/>
+                <Post data={{text: 'Este es el contenido del post'}}/>
+                <Post data={{text: 'Este es el contenido del post'}}/>
+                <Post data={{text: 'Este es el contenido del post'}}/>
+                <Post data={{text: 'Este es el contenido del post'}}/>
+                <Post data={{text: 'Este es el contenido del post'}}/>
+                <Post data={{text: 'Este es el contenido del post'}}/>
+                <Post data={{text: 'Este es el contenido del post'}}/>
             </View>
         )
     }
@@ -57,6 +63,9 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 17,
         color: 'white'
+    },
+    logoutContainer: {
+        marginLeft: 'auto'
     }
   });
 

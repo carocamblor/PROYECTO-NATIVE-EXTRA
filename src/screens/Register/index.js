@@ -35,12 +35,20 @@ class Register extends Component {
                     keyboardType='default'
                     placeholder='Password'
                     placeholderTextColor='white'
-                    secureTextEntry={true}
-                    onChangeText={ text => this.setState({password: text})}
+                    secureTextEntry={false}
+                    onChangeText={ text => this.setState({password: text}, () => console.log(this.state.password))}
                 />
-                <TouchableOpacity style={styles.button} onPress={() => this.props.login(this.state.email, this.state.password)}>
+                <TouchableOpacity style={styles.button} onPress={() => this.props.register(this.state.email, this.state.username, this.state.password)}>
                     <Text style={styles.buttonText}>
                         Register
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.linkContainer} onPress={() => this.props.navigation.navigate('Login')}>
+                    <Text style={styles.text}>
+                        ¿Already have an account?
+                    </Text>
+                    <Text style={styles.link}>
+                        Sign in here.
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -82,6 +90,25 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 17
+    },
+    text: {
+        color: 'black',
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: 15
+    },
+    link: {
+        color: 'black',
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: 15,
+        textDecorationLine: 'underline'
+    },
+    linkContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        gap: 5,
+        justifyContent: 'center'
     }
   });
 

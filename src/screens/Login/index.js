@@ -36,6 +36,14 @@ class Login extends Component {
                         Login
                     </Text>
                 </TouchableOpacity>
+                <TouchableOpacity style={styles.linkContainer} onPress={() => this.props.navigation.navigate('Register')}>
+                    <Text style={styles.text}>
+                        ¿Don't have an account?
+                    </Text>
+                    <Text style={styles.link}>
+                        Sign up here.
+                    </Text>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -75,6 +83,25 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 17
+    },
+    text: {
+        color: 'black',
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: 15
+    },
+    link: {
+        color: 'black',
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: 15,
+        textDecorationLine: 'underline'
+    },
+    linkContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        gap: 5,
+        justifyContent: 'center'
     }
   });
 

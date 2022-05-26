@@ -5,6 +5,7 @@ import Login from "../screens/Login/index";
 import Register from "../screens/Register/index";
 import TabNavigation from "./TabNavigation";
 import { StyleSheet } from "react-native";
+import { auth, db } from "../firebase/config";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,8 +15,52 @@ class StackNavigation extends Component {
         super(props);
         this.state = {
             loggedIn: false,
-
+            loginError: '',
+            registerError: ''
         }
+    }
+
+    componentDidMount(){
+        auth.onAuthStateChanged( user => {
+            if(user){
+                this.setState({loggedIn: true})
+            }
+         })
+    }
+
+    register(email, username, pass){
+        console.log(email + ' ' + username + ' ' + pass)
+        auth.createUserWithEmailAndPassword(email, pass)
+            .then((response) => {
+                this.setState({loggedIn: true})
+                db.collection('users').add({
+                    username: username,
+                    owner: email,
+                    createdAt: Date.now()
+                })
+                .then(response => console.log('se creó el usuario'))
+                .catch(e => console.log('hubo un error' + e))
+            })
+            .catch(e => {
+                let message = e.message
+                this.setState({registerError: message})
+            })
+    }
+
+    login(email, pass){
+        auth.signInWithEmailAndPassword(email, pass)
+            .then(response => {
+                this.setState({loggedIn: true})
+            })
+            .catch(e => {
+                let message = e.message
+                this.setState({loginError: message})
+            })
+    }
+
+    logout(){
+        auth.signOut()
+            .then(response => this.setState({loggedIn: false}))
     }
 
     render(){
@@ -33,11 +78,21 @@ class StackNavigation extends Component {
                     }} >
                     {this.state.loggedIn ?
                     <Stack.Group>
-                        <Stack.Screen name='TabNavigation' component={ TabNavigation } />
+                        <Stack.Screen
+                            name='TabNavigation'
+                            component={ TabNavigation }
+                            initialParams={ {logout: () => this.logout()} }
+                            />
                     </Stack.Group> :
                     <Stack.Group>
-                        <Stack.Screen name='Login' component={ Login } />
-                        <Stack.Screen name='Register' component={ Register } />
+                        <Stack.Screen
+                        name='Login'
+                        children={(props) => <Login login={(email, pass) => this.login(email, pass)} loginError={this.state.loginError} {...props} />}
+                        />
+                        <Stack.Screen
+                            name='Register'
+                            children={(props) => <Register register={(email, username, pass) => this.register(email, username, pass)} registerError={this.state.registerError} {...props} />}
+                        />
                     </Stack.Group>
                     }
                 </Stack.Navigator>

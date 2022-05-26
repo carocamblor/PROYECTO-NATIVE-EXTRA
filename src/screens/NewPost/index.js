@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { db, auth } from '../../firebase/config';
 
 class NewPost extends Component {
 
     constructor(props){
         super(props)
         this.state = {
-            email: '',
-            username: '',
-            password: ''
+            text: '',
         }
+    }
+
+    newPost(text){
+        db.collection('posts').add({
+            text: text,
+            owner: auth.currentUser.email,
+            createdAt: Date.now()
+        })
+        .then(response => {
+            this.setState({text: ''})
+        })
+        .catch(e => console.log(e))
     }
 
     render() {
@@ -21,9 +32,13 @@ class NewPost extends Component {
                     keyboardType='default'
                     placeholder={"What's happening?"}
                     placeholderTextColor='white'
-                    onChangeText={ text => this.setState({email: text})}
+                    onChangeText={ text => this.setState({text: text})}
+                    value={this.state.text}
                 />
-                <TouchableOpacity style={styles.button} onPress={() => this.props.login(this.state.email, this.state.password)}>
+                <TouchableOpacity style={styles.button} onPress={() => {
+                    this.newPost(this.state.text)
+                    this.props.navigation.navigate('Home')
+                    }}>
                     <Text style={styles.buttonText}>
                         Post
                     </Text>
