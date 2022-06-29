@@ -2,16 +2,16 @@ import app from 'firebase/app';
 import firebase from 'firebase';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAWjbxPLBk9xLi8bnwF-9EQssADCkpRqN0",
-    authDomain: "proyecto-extra-native.firebaseapp.com",
-    projectId: "proyecto-extra-native",
-    storageBucket: "proyecto-extra-native.appspot.com",
-    messagingSenderId: "794169269034",
-    appId: "1:794169269034:web:7c4503b14e5b2e09fc5c53"
-};
+    apiKey: "AIzaSyC2jOJbp_ZmtwdMtXb6SsVkhWYckG_Oad4",
+    authDomain: "practica-para-el-final.firebaseapp.com",
+    projectId: "practica-para-el-final",
+    storageBucket: "practica-para-el-final.appspot.com",
+    messagingSenderId: "367325262996",
+    appId: "1:367325262996:web:60a81575d8f1b8bf80f081"
+  };
 
 app.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
-export const storgae = app.storage();
+export const storage = app.storage();
 export const db = app.firestore();

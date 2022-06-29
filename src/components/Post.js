@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons'; 
 import { db, auth } from '../firebase/config';
@@ -67,6 +67,10 @@ class Post extends Component {
                     <FontAwesome name="user-circle" size={24} color="white" />
                     <Text style={styles.username}>@username</Text>
                 </View>
+                <Image
+                    style={styles.image}
+                    source={{uri: this.props.info.data.photo}}
+                />
                 <View style={styles.content}>
                     <Text style={styles.text}>{this.props.info.data.text}</Text>
                 </View> 
@@ -116,6 +120,9 @@ const styles = StyleSheet.create({
     content: {
         paddingBottom: 10,
         paddingTop: 5
+    },
+    image: {
+        height: 100
     }
 
 })

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
 import { db, auth } from '../../firebase/config';
+import MyCamera from '../../components/MyCamera';
 
 class NewPost extends Component {
 
@@ -8,6 +9,8 @@ class NewPost extends Component {
         super(props)
         this.state = {
             text: '',
+            showCameraComponent: true,
+            urlFoto: ''
         }
     }
 
@@ -17,7 +20,8 @@ class NewPost extends Component {
             owner: auth.currentUser.email,
             likes: [],
             comments: [],
-            createdAt: Date.now()
+            createdAt: Date.now(),
+            photo: this.state.urlFoto
         })
         .then(response => {
             this.setState({text: ''})
@@ -25,27 +29,43 @@ class NewPost extends Component {
         .catch(e => console.log(e))
     }
 
+    onImageUpload(url){
+        this.setState({
+            urlFoto: url,
+            showCameraComponent: false
+        })
+    }
+
     render() {
         return (
             <View style={styles.screen}>
                 <View style={styles.container}>
                 <Text style={styles.title}>New Post</Text>
-                <TextInput
-                    style={styles.input}
-                    keyboardType='default'
-                    placeholder={"What's happening?"}
-                    placeholderTextColor='white'
-                    onChangeText={ text => this.setState({text: text})}
-                    value={this.state.text}
-                />
-                <TouchableOpacity style={styles.button} onPress={() => {
-                    this.newPost(this.state.text)
-                    this.props.navigation.navigate('Home')
-                    }}>
-                    <Text style={styles.buttonText}>
-                        Post
-                    </Text>
-                </TouchableOpacity>
+                {this.state.showCameraComponent ?
+                    <MyCamera onImageUpload={(url) => this.onImageUpload(url)}/> :
+                    <View>
+                        <Image
+                            style={styles.image}
+                            source={{uri: this.state.urlFoto}}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            keyboardType='default'
+                            placeholder={"What's happening?"}
+                            placeholderTextColor='white'
+                            onChangeText={ text => this.setState({text: text})}
+                            value={this.state.text}
+                        />
+                        <TouchableOpacity style={styles.button} onPress={() => {
+                            this.newPost(this.state.text)
+                            this.props.navigation.navigate('Home')
+                            }}>
+                            <Text style={styles.buttonText}>
+                                Post
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                }
                 </View>
             </View>
         )
@@ -92,6 +112,9 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 17
+    },
+    image: {
+        height: 100
     }
   });
 
